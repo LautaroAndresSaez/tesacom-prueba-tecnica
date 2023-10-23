@@ -21,3 +21,14 @@ export const floatToBits: NumberToBitsParser = (value) => {
 
   return `${sign}${exp}${coeff}`;
 };
+
+export const intToBits: NumberToBitsParser = (value, n) => {
+  if (!n || n < 2 || n > 32)
+    throw new Error("Number of bits must be between 2 and 32");
+  if (value === 0) return "".padStart(n, "0");
+  if (value > 0) {
+    return value.toString(2).padStart(n, "0");
+  }
+  const c2 = Math.pow(2, n) + value;
+  return c2.toString(2);
+};
