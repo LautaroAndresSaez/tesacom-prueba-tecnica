@@ -14,7 +14,7 @@ export const bitsToFloat: BitsParser = (bits) => {
   return sign * Math.pow(2, exp) * coeff;
 };
 
-export const intParser: BitsParser = (bits) => {
+export const bitsToInt: BitsParser = (bits) => {
   if (bits.length < 2 || bits.length > 32)
     throw new Error("length of bits must be between 2 and 32");
   if (bits[0] === "0") return parseInt(bits, 2);
@@ -22,7 +22,7 @@ export const intParser: BitsParser = (bits) => {
   return c2 - Math.pow(2, bits.length);
 };
 
-export const uintParser: BitsParser = (bits) => {
+export const bitsToUint: BitsParser = (bits) => {
   if (bits.length < 1 || bits.length > 32)
     throw new Error("length of bits must be between 1 and 32");
   return parseInt(bits, 2);
