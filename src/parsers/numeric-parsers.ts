@@ -13,3 +13,11 @@ export const bitsToFloat: BitsParser = (bits) => {
     .reduce((acc, x) => acc + x, 1);
   return sign * Math.pow(2, exp) * coeff;
 };
+
+export const intParser: BitsParser = (bits) => {
+  if (bits.length < 2 || bits.length > 32)
+    throw new Error("len must be between 2 and 32");
+  if (bits[0] === "0") return parseInt(bits, 2);
+  const c2 = parseInt(bits, 2);
+  return c2 - Math.pow(2, bits.length);
+};
