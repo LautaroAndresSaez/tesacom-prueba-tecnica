@@ -7,4 +7,4 @@ export type EncodeResult = {
   size: number;
 };
 
-export type Decoder = (buffer: Buffer, format: Format) => any;
+export type Decode = (buffer: Buffer, format: Format) => any;

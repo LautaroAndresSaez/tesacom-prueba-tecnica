@@ -1,6 +1,11 @@
 import { floatToBits, intToBits, uintToBits } from "./parsers/bits-parsers";
-import { Encode } from "./types";
+import { bitsToFloat, bitsToInt, bitsToUint } from "./parsers/numeric-parsers";
+import { Decode, Encode } from "./types";
+import { Entrie } from "./types/entries";
 import { Format } from "./types/format";
+import { bufferToBits } from "./utils/buffer-to-bits";
+import { crop } from "./utils/crop-bits";
+import { entriesToObject } from "./utils/entries-to-object";
 
 export const encode: Encode = (obj, format) => {
   if (format.length === 0)
@@ -32,4 +37,27 @@ export const encode: Encode = (obj, format) => {
     size: sequence.length,
     buffer: Buffer.from(hexSequence, "hex"),
   };
+};
+
+export const decode: Decode = (buffer, format) => {
+  let bits = bufferToBits(buffer);
+  const entries: Entrie[] = format.map((formatItem) => {
+    const cropResult = crop(bits, formatItem);
+    bits = cropResult.bits;
+    const { tag } = formatItem;
+    const { value } = cropResult;
+    switch (formatItem.type) {
+      case "uint":
+        return [tag, bitsToUint(value)];
+      case "int":
+        return [tag, bitsToInt(value)];
+      case "float":
+        return [tag, bitsToFloat(value)];
+      case "ascii":
+      default:
+        throw new Error(`${formatItem.type} is not supported`);
+    }
+  });
+
+  return entriesToObject(entries);
 };
