@@ -1,3 +1,4 @@
+import { FLOAT_BITS } from "../constants";
 import { bitsToFloat, floatToBits } from "./float-parser";
 
 describe("Test float parsers", () => {
@@ -9,6 +10,11 @@ describe("Test float parsers", () => {
   it("should convert negative float to bits", () => {
     const bits = floatToBits(-12.5);
     expect(bits).toBe("11000001010010000000000000000000");
+  });
+
+  it("should convert periodic float", () => {
+    const bits = floatToBits(Math.PI);
+    expect(bits).toHaveLength(FLOAT_BITS);
   });
 
   it("should parse bits to float", () => {

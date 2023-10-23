@@ -16,7 +16,7 @@ export const floatToBits: NumberToBitsParser = (value) => {
 
   const coeff = stringValue
     .split("")
-    .filter((x, i) => x !== "." && i !== 0)
+    .filter((x, i) => x !== "." && i !== 0 && i < FLOAT_COEFF_LENGTH)
     .join("")
     .padEnd(FLOAT_COEFF_LENGTH, "0");
 
