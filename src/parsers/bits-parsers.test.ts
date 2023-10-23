@@ -1,4 +1,4 @@
-import { floatToBits, intToBits } from "./bits-parsers";
+import { floatToBits, intToBits, uintToBits } from "./bits-parsers";
 
 describe("Test in bits parsers functions", () => {
   it("should convert positive float to bits", () => {
@@ -25,5 +25,15 @@ describe("Test in bits parsers functions", () => {
     const result = intToBits(4, 8);
     expect(result).toHaveLength(8);
     expect(result).toBe("00000100");
+  });
+
+  it("should encode 2bits correctly", () => {
+    const result = uintToBits(2, 2);
+    expect(result).toBe("10");
+  });
+
+  it("should encode 2 in 4bits correctly", () => {
+    const result = uintToBits(2, 4);
+    expect(result).toBe("0010");
   });
 });
