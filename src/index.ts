@@ -1,9 +1,11 @@
+import { BYTE_LENGTH } from "./constants";
 import { asciiToBits, bitsToAscii } from "./parsers/ascii-parser";
 import { bitsToFloat, floatToBits } from "./parsers/float-parser";
 import { bitsToInt, intToBits } from "./parsers/int-parsers";
 import { bitsToUint, uintToBits } from "./parsers/uint-parsers";
 import { Decode, Encode } from "./types";
 import { Entrie } from "./types/entries";
+import { binaryToHex } from "./utils/binary-to-hex";
 import { bufferToBits } from "./utils/buffer-to-bits";
 import { crop } from "./utils/crop-bits";
 import { entriesToObject } from "./utils/entries-to-object";
@@ -32,7 +34,7 @@ export const encode: Encode = (obj, format) => {
     })
     .join("");
 
-  const hexSequence = BigInt(`0b${sequence}`).toString(16);
+  const hexSequence = binaryToHex(sequence);
   return {
     size: sequence.length,
     buffer: Buffer.from(hexSequence, "hex"),
@@ -54,7 +56,7 @@ export const decode: Decode = (buffer, format) => {
       case "float":
         return [tag, bitsToFloat(value)];
       case "ascii":
-        const result = bitsToAscii(bits);
+        const result = bitsToAscii(value + bits);
         bits = result.bits;
         return [tag, result.text];
     }
