@@ -1,8 +1,8 @@
 import { decode, encode } from ".";
 import { Format } from "./types/format";
 
-describe("Test encode-decode", () => {
-  it("should decode-encode without float", () => {
+describe("Test reversibility encode-decode", () => {
+  it("should encode-decode without float", () => {
     const format: Format = [
       { tag: "PTemp", type: "int", len: 12 },
       { tag: "BattVolt.value", type: "int", len: 12 },
@@ -15,7 +15,7 @@ describe("Test encode-decode", () => {
     expect(result.size).toBe(32);
   });
 
-  it("should decode-encode with floats", () => {
+  it("should encode-decode with floats", () => {
     const format: Format = [
       { tag: "PTemp", type: "int", len: 12 },
       { tag: "BattVolt.value", type: "float" },
