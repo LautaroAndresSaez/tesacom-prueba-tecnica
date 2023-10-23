@@ -9,6 +9,7 @@ const config: Config = {
   extensionsToTreatAsEsm: [".ts"],
   preset: "ts-jest",
   testEnvironment: "node",
+  testPathIgnorePatterns: ["/node_modules/", "/config/"],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
