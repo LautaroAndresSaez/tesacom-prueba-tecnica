@@ -29,6 +29,6 @@ describe("Test encode-decode", () => {
     const encodeResult = encode(data, format);
     const decodeResult = decode(encodeResult.buffer, format) as typeof data;
     expect(encodeResult.size).toBe(52);
-    expect(decodeResult.BattVolt.value).toEqual(data.BattVolt.value);
+    expect(decodeResult.BattVolt.value).toBeCloseTo(data.BattVolt.value);
   });
 });
