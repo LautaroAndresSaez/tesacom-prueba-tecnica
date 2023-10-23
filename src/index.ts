@@ -1,3 +1,4 @@
+import { asciiToBits, bitsToAscii } from "./parsers/ascii-parser";
 import { floatToBits, intToBits, uintToBits } from "./parsers/bits-parsers";
 import { bitsToFloat, bitsToInt, bitsToUint } from "./parsers/numeric-parsers";
 import { Decode, Encode } from "./types";
@@ -26,8 +27,7 @@ export const encode: Encode = (obj, format) => {
         case "float":
           return floatToBits(value);
         case "ascii":
-        default:
-          throw new Error(`${formatType} is not supported`);
+          return asciiToBits(value);
       }
     })
     .join("");
@@ -54,8 +54,9 @@ export const decode: Decode = (buffer, format) => {
       case "float":
         return [tag, bitsToFloat(value)];
       case "ascii":
-      default:
-        throw new Error(`${formatItem.type} is not supported`);
+        const result = bitsToAscii(bits);
+        bits = result.bits;
+        return [tag, result.text];
     }
   });
 
