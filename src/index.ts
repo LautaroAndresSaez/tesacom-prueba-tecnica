@@ -1,9 +1,9 @@
 import { asciiToBits, bitsToAscii } from "./parsers/ascii-parser";
-import { floatToBits, intToBits, uintToBits } from "./parsers/bits-parsers";
-import { bitsToFloat, bitsToInt, bitsToUint } from "./parsers/numeric-parsers";
+import { bitsToFloat, floatToBits } from "./parsers/float-parser";
+import { bitsToInt, intToBits } from "./parsers/int-parsers";
+import { bitsToUint, uintToBits } from "./parsers/uint-parsers";
 import { Decode, Encode } from "./types";
 import { Entrie } from "./types/entries";
-import { Format } from "./types/format";
 import { bufferToBits } from "./utils/buffer-to-bits";
 import { crop } from "./utils/crop-bits";
 import { entriesToObject } from "./utils/entries-to-object";
